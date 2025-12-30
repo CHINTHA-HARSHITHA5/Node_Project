@@ -1,21 +1,21 @@
 import express from 'express'
+import dotenv from 'dotenv'
+
+import mongoose from 'mongoose'
+import bodyparser from 'body-parser'
+
+dotenv.config()
 
 const app = express()
 
-app.get('/name',(request,response)=>{
-response.send('we are learning get API')
+const PORT = process.env.PORT || 5000
+
+mongoose.connect(process.env.MONGO_URI).then(()=>{
+    console.log("mongDB Connect Successfully")
+}).catch((error)=>{
+    console.log("MongDB Not Connected")
 })
 
-app.get('/',(request,response)=>{
-    response.send("this is home page..")
-})
-
-app.get('/designation',(request,response)=>{
-    response.send("This is designation page..")
-})
-app.get('/service',(request,response)=>{
-    response.send('This is service page')
-})
-app.listen(5000,()=>{
-    console.log("successfully run server...")
+app.listen(PORT,()=>{
+    console.log(`server started and running on port ${PORT}`)
 })
