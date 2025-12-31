@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 
 import mongoose from 'mongoose'
 import bodyparser from 'body-parser'
+import employeeRoutes from './routes/employeeRoutes.js'
 
 dotenv.config()
 
@@ -16,6 +17,9 @@ mongoose.connect(process.env.MONGO_URI).then(()=>{
     console.log("MongDB Not Connected")
 })
 
+app.use(express.json());
+
+app.use('/',employeeRoutes)
 app.listen(PORT,()=>{
     console.log(`server started and running on port ${PORT}`)
 })
